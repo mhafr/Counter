@@ -20,7 +20,7 @@ export const CounterContext = React.createContext();
 
 export const CounterProvider = ({ children }) => {
   const [currentAccount, setCurrentAccount] = useState("");
-  const [counter, setCounter] = useState();
+  const [counter, setCounter] = useState("");
   const [provider, setProvider] = useState(
     new ethers.providers.WebSocketProvider(
       "wss://rinkeby.infura.io/ws/v3/72c9518af24346be88fb264397e2859a",
@@ -114,7 +114,7 @@ export const CounterProvider = ({ children }) => {
     }
   }, [contract]);
 
-  const parseCounter = parseInt(counter["_hex"], 16);
+  const parseCounter = parseInt(counter["_hex"], 16)
 
   useEffect(() => {
     const start = () => {

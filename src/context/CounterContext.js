@@ -52,9 +52,10 @@ export const CounterProvider = ({ children }) => {
   
       const web3Modal = new Web3Modal({
         network: "rinkeby", // optional
-        cacheProvider: true, // optional
+        cacheProvider: false, // optional
         providerOptions, // required
       });
+      web3Modal.clearCachedProvider();
   
       const account = await web3Modal.connect();
       new ethers.providers.Web3Provider(account)

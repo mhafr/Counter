@@ -51,7 +51,6 @@ export const CounterProvider = ({ children }) => {
       };
   
       const web3Modal = new Web3Modal({
-        network: "rinkeby", // optional
         cacheProvider: false, // optional
         providerOptions, // required
       });

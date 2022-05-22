@@ -182,7 +182,7 @@ p {
   left: 0;
   width: 100%;
   height: 100%;
-  background: url(../Cloudy.svg);
+  background: url(./Cloudy.svg);
   position: absolute;
   z-index: -1;
   background-size: cover;
@@ -311,7 +311,7 @@ p {
 }
 
 .footer-container {
-  background: url(../Cloudy.svg);
+  background: url(./Cloudy.svg);
   display: flex;
   justify-content: right;
   align-items: center;
@@ -336,7 +336,7 @@ p {
 }
 
 .künkef {
-  background: url(../fire.JPG) repeat-x;
+  background: url(./fire.JPG) repeat-x;
   -webkit-background-clip: text;
   font-family: Arial;
   background-size: contain;

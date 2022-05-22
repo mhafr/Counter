@@ -4,12 +4,12 @@ import { BsInfoCircle } from "react-icons/bs";
 import { CounterContext } from "../context/CounterContext";
 const Welcome = () => {
   const {
-    connectWallet,
     currentAccount,
     increase,
-    parseCounter,
+    counter,
     decrease,
     isLoading,
+    connectWC
   } = useContext(CounterContext);
 
 
@@ -28,7 +28,7 @@ const Welcome = () => {
             <button
               className="wallet-btn"
               type="button"
-              onClick={connectWallet}
+              onClick={connectWC}
             >
               Connect Wallet
             </button>
@@ -116,7 +116,7 @@ const Welcome = () => {
                   color: "black",
                 }}
               >
-                {parseCounter}
+                {counter}
               </p>
             )}
             {currentAccount ? <button

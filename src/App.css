@@ -1,0 +1,57 @@
+.main-app {
+  text-align: center;
+  width: 90vw;
+  max-width: 1170px;
+  margin: 0 auto;
+}
+
+.navbar-container h1{
+  font-size: 2rem;
+}
+
+.cta-button {
+  padding: 15px;
+  border: none;
+  border-radius: 12px;
+  min-width: 250px;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  margin-bottom: 1rem;
+}
+
+.connect-wallet-button {
+  background: rgb(229, 177, 80);
+}
+.disconnect-wallet-button {
+  background: rgb(135, 223, 144);
+}
+
+.increase-button {
+  background: rgb(122, 175, 232);
+}
+.decrease-button {
+  background: rgb(244, 169, 169);
+}
+
+.navbar-container{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.navbar-brand{
+
+}
+.navbar-end{
+
+}
+.has-text-danger{
+  color:red;
+}
+.has-text-warning{
+  color:rgb(180, 120, 0);
+}
+.has-text-success{
+  color:rgb(0, 178, 12);
+}

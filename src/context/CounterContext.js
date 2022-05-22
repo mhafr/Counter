@@ -1,20 +1,10 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { ethers } from "ethers";
 import { contractAddress, contractABI } from "../utils/constants";
+import Web3Modal from "web3modal";
+import WalletConnectProvider from "@walletconnect/web3-provider";
 
 const { ethereum } = window;
-
-// const getCounterContract=()=>{
-//     const provider = new ethers.providers.Web3Provider(ethereum);
-//     const signer = provider.getSigner();
-//     const counterContract = new ethers.Contract(
-//       contractAddress,
-//       contractABI,
-//       signer
-//     );
-
-//     return counterContract
-// }
 
 export const CounterContext = React.createContext();
 
@@ -32,10 +22,12 @@ export const CounterProvider = ({ children }) => {
   );
   const [isLoading, setIsLoading] = useState(false);
 
-  const doesWalletExist = async () => {
+  const doesWalletExist=async()=>{
     try {
       if (!ethereum) return alert("Please install metamask");
+
       const accounts = await ethereum.request({ method: "eth_accounts" });
+
       if (accounts.length) {
         setCurrentAccount(accounts[0]);
       } else {
@@ -43,20 +35,32 @@ export const CounterProvider = ({ children }) => {
       }
     } catch (error) {
       console.log(error);
-      throw new Error("No ethereum object");
+      throw new Error("No ethereum object.");
     }
-  };
+  }
 
-  const connectWallet = async () => {
-    try {
-      if (!ethereum) return alert("Please install metamask");
-      const accounts = await ethereum.request({
-        method: "eth_requestAccounts",
+  const connectWC = async () => {
+    try {      
+      const providerOptions = {
+        walletconnect: {
+          package: WalletConnectProvider, 
+          options: {
+            infuraId: "INFURA_ID",
+          },
+        },
+      };
+  
+      const web3Modal = new Web3Modal({
+        network: "rinkeby", // optional
+        cacheProvider: true, // optional
+        providerOptions, // required
       });
-      setCurrentAccount(accounts[0]);
+  
+      const account = await web3Modal.connect();
+      new ethers.providers.Web3Provider(account)
     } catch (error) {
       console.log(error);
-      throw new Error("No ethereum object");
+      throw new Error("No ethereum object")
     }
   };
 
@@ -105,7 +109,7 @@ export const CounterProvider = ({ children }) => {
   const getCounter = useCallback(async () => {
     try {
       if (ethereum) {
-        const txn = await contract.getCounter();
+        const txn = parseInt((await contract.getCounter())["_hex"],16);
         setCounter(txn);
       }
     } catch (error) {
@@ -113,8 +117,6 @@ export const CounterProvider = ({ children }) => {
       throw new Error("No ethereum object");
     }
   }, [contract]);
-
-  const parseCounter = parseInt(counter["_hex"], 16)
 
   useEffect(() => {
     const start = () => {
@@ -126,18 +128,19 @@ export const CounterProvider = ({ children }) => {
       });
     };
     start();
-    doesWalletExist();
+    doesWalletExist()
     getCounter();
   }, [contract, getCounter]);
+
   return (
     <CounterContext.Provider
       value={{
-        connectWallet,
         increase,
         currentAccount,
         decrease,
-        parseCounter,
+        counter,
         isLoading,
+        connectWC,
       }}
     >
       {children}
